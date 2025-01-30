@@ -1,0 +1,24 @@
+lettera.sh
+#!/bin/bash
+(( NUMERO=${RANDOM}%2 ))
+if (( $NUMERO == 0 )) ; then echo -n a 
+else echo -n  c
+fi
+
+parola.sh
+#!/bin/bash
+PAROLA="" # parola vuota per contenere le 4 lettere
+for (( i=0; $i < 4; i=$i + 1 )) ; do
+  PAROLA=${PAROLA}$(./lettera.sh) # concateno altrimenti dopo ogni iterazione sovrascrivo
+done
+echo ${PAROLA}
+
+
+tenta.sh
+for (( counter=1; ; counter++ )) ; do
+  PAROLA=`./parola.sh`
+  if [[ ${PAROLA} == "cacc" ]] ; then
+    echo ${PAROLA} $counter
+    break
+  fi
+done
